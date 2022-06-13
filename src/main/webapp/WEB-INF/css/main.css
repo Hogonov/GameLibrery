@@ -1,0 +1,12 @@
+body{
+    display: flex;
+    flex-direction: column;
+}
+.content{
+    flex-grow: 1;
+    margin-top: 10%;
+}
+
+header{
+    position: absolute;
+}

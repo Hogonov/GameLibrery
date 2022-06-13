@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+    <title>Library</title>
+</head>
+<body>
+<header th:fragment="header">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="nuv navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a th:text="#{label.home}" class="nav-link" th:href="@{/}">Home
+                        <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown show">
+                    <a th:text="#{label.games}" class="nav-link dropdown-toggle" href="#" id="dropdown07XL" data-toggle="dropdown"
+                       aria-expanded="true">Games</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown07XL">
+                        <a sec:authorize="isAuthenticated()" class="dropdown-item" th:href="@{/games/add}">Add Game</a>
+                        <a class="dropdown-item" th:href="@{/games/allgames}">All Games</a>
+                        <a sec:authorize="isAuthenticated()" class="dropdown-item" th:href="@{/games/addgenre}">Add Genre</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown show">
+                    <a th:text="#{label.developers}" class="nav-link dropdown-toggle" href="#" id="dropdown08XL" data-toggle="dropdown"
+                       aria-expanded="true">Developers</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown08XL">
+                        <a sec:authorize="${hasRole('ROLE_ADMIN')}" class="dropdown-item" th:href="@{/developers/add}">Add Developer</a>
+                        <a class="dropdown-item" th:href="@{/developers/alldevs}">All Developers</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown show">
+                    <a th:text="#{label.language}" class="nav-link dropdown-toggle" href="#" id="dropdown09XL" data-toggle="dropdown"
+                       aria-expanded="true">Language</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown09XL">
+                        <a class="dropdown-item" href="?lang=en">en</a>
+                        <a class="dropdown-item" href="?lang=ru">ru</a>
+                    </div>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav">
+                <li class="text-light mr-2" sec:authorize="isAuthenticated()">
+                    Hello, <span sec:authentication="${name}"></span>
+                    <a class="btn btn-outline-light my-2 my-sm-0" id="logout" href="/game_library/logout">Logout</a>
+                    <form id="logout-form" th:action="@{/login}" method="post">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    </form>
+                </li>
+                <li class="mr-2" sec:authorize="!isAuthenticated()">
+                    <a class="btn btn-outline-light my-2 my-sm-0" href="/game_library/login">Login</a>
+                </li>
+                <li class="mr-2" sec:authorize="!isAuthenticated()">
+                    <a class="btn btn-outline-light my-2 my-sm-0" th:href="@{/register}">Register</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+</header>
+</body>
+</html>
